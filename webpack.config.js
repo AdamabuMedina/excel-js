@@ -7,7 +7,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const isProd = process.env.NODE_ENV === "production";
 const isDev = !isProd;
 
-const filename = (ext) => (isDev ? `bundle.${ext}` : `bundle.[hash].${ext}`);
+const filename = (ext) =>
+  isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`;
 
 const jsLoaders = () => {
   const loaders = [
@@ -29,6 +30,7 @@ module.exports = {
   output: {
     filename: filename("js"),
     path: path.resolve(__dirname, "dist"),
+    assetModuleFilename: `./assets/${filename("[ext]")}`,
   },
   resolve: {
     extensions: [".js"],
@@ -73,6 +75,14 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: "asset/resource",
       },
     ],
   },
