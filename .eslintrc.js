@@ -1,9 +1,7 @@
 module.exports = {
-  parser: "babel-eslint",
   env: {
     browser: true,
     es2021: true,
-    node: true,
   },
   plugins: ["prettier"],
   extends: ["eslint:recommended", "prettier"],
@@ -12,6 +10,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
+    quotes: [2, "double", "backtick", { avoidEscape: true }],
     "comma-dangle": ["error", "never"],
     "no-alert": 0,
     "no-param-reassign": [2, { props: false }],
@@ -19,7 +18,6 @@ module.exports = {
     "no-iterator": 0,
     "no-restricted-syntax": [2, "WithStatement"],
     "func-style": 0,
-    quotes: [2, "double", "backtick", { avoidEscape: true }],
     "prettier/prettier": "error",
   },
-}
+};
